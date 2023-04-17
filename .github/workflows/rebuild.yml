@@ -1,0 +1,51 @@
+#on:
+#  schedule:
+#  # Run every Sunday at midnight
+#    - cron: "0 0 * * 0"
+#jobs:
+#  build:
+#    name: Rebuild on Sunday
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout Master
+#        uses: actions/checkout@v2
+#
+#      # Make Repo name lowercase for Docker
+#      - id: repo
+#        uses: ASzc/change-string-case-action@v2
+#        with:
+#          string: ${{github.repository}}
+#
+#      # Setup Docker buld action
+#      - name: Set up Docker Buildx
+#        id: buildx
+#        uses: docker/setup-buildx-action@v1
+#      # Login to Github Container Registry
+#      - name: Login to Github Packages
+#        uses: docker/login-action@v1
+#        with:
+#          registry: ghcr.io
+#          username: ${{ github.actor }}
+#          password: ${{ secrets.GITHUB_TOKEN }}
+#      # Build Docker Image
+#      - name: Build Docker Image and push to Github Registry
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: .
+#          tags: ghcr.io/${{ steps.repo.outputs.lowercase }}:latest
+#          push: true
+#          cache-from: type=registry,ref=${{ steps.repo.outputs.lowercase }}:latest
+#          cache-to: type=inline
+#          secrets: |
+#            "SENTRY_TOKEN=${{ secrets.SENTRY_TOKEN }}"
+#
+#      - name: Deploy to Rancher
+#        uses: SkewedAspect/rancher-redeploy@v0.5.0
+#        env:
+#          RANCHER_BEARER_TOKEN: ${{ secrets.RANCHER_TOKEN }}
+#          RANCHER_CLUSTER_ID: c-n4d26
+#          RANCHER_NAMESPACE: default
+#          RANCHER_URL: https://lane.byu.edu
+#          # Change these to your own values
+#          RANCHER_WORKLOAD: <project id>
+#          RANCHER_PROJECT_ID: p-hkvsb

@@ -1,0 +1,62 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Allows the MUI grid rows to expand to child height */
+
+.MuiDataGrid-viewport,
+.MuiDataGrid-row,
+.MuiDataGrid-renderingZone {
+  max-height: fit-content !important;
+}
+
+/* Allows the MUI grid rows to expand to child height */
+
+.MuiDataGrid-cell {
+  max-height: fit-content !important;
+
+  overflow: auto;
+
+  white-space: initial !important;
+
+  line-height: 16px !important;
+
+  display: flex !important;
+
+  align-items: center;
+
+  padding-top: 10px !important;
+
+  padding-bottom: 10px !important;
+}
+
+@media (max-width: 600px) {
+  .MuiButtonBase-root {
+    font-size: 0.5rem !important;
+  }
+
+  .MuiTypography-h5 {
+    font-size: 1rem !important;
+  }
+
+  .MuiDataGrid-cell {
+    font-size: 0.5rem !important;
+  }
+
+  .MuiDataGrid-columnHeaderTitleContainer {
+    font-size: 0.7rem !important;
+  }
+}
